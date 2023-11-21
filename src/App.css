@@ -64,3 +64,44 @@
   font-weight: 700;
   gap: 4px;
 }
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.category {
+  display: flex;
+  gap: 8.45px;
+}
+
+.category_name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  padding: 10px 20px ;
+  background: #F9F9F9;
+  cursor: pointer;
+}
+
+.category_name_active {
+  background: #000000;  
+  color: #fff;
+}
+
+.sort {
+  display: flex;
+  gap: 10px;
+  color: #2C2C2C;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.21px;
+}
+
+.sort_name {
+  color: #FE5F1E;
+  font-weight: 400;
+  cursor: pointer;
+}

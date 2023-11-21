@@ -23,7 +23,22 @@ function App() {
             </span>
           </div>
         </div>
-        <nav className="nav"></nav>
+        <nav className="nav">
+          <div className="category">
+            <p className="category_name_active category_name">Все</p>
+            <p className="category_name">Мясные</p>
+            <p className="category_name">Вегетарианская</p>
+            <p className="category_name">Гриль</p>
+            <p className="category_name">Острые</p>
+            <p className="category_name">Закрытые</p>
+          </div>
+          <div className="sort">
+            Сортировка по:
+            <p className="sort_name">
+              популярности
+            </p>
+          </div>
+        </nav>
         <div className="pizzas"></div>
       </div>
     </div>
