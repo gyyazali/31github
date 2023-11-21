@@ -1,6 +1,7 @@
 import "../../src/App.css"
 import shopCar from "../assets/shop-car.png"
 import pizzaIcon from "../assets/pizzaIcon.png"
+import { Pizza_card } from "./pizza_card/pizza_card";
 
 function App() {
   return (
@@ -39,7 +40,12 @@ function App() {
             </p>
           </div>
         </nav>
-        <div className="pizzas"></div>
+        <div className="pizzas">
+          <p className="pizzas_title">Все пиццы</p>
+          <div className="pizza_cards">
+            <Pizza_card />
+          </div>
+        </div>
       </div>
     </div>
   );
