@@ -32,7 +32,7 @@ function App() {
         </div>
         <nav className="nav">
           <div className="category">
-            <p onClick={() => onClickCategory(0)} className={`${activeCategory === 0 ? "category_name_active" : ""} category_name`}>Все</p>
+            <p onClick={() => onClickCategory(1)} className={`${activeCategory === 0 ? "category_name_active" : ""} category_name`}>Все</p>
             <p onClick={() => onClickCategory(1)} className={`${activeCategory === 1 ? "category_name_active" : ""} category_name`}>Мясные</p>
             <p onClick={() => onClickCategory(2)} className={`${activeCategory === 2 ? "category_name_active" : ""} category_name`}>Вегетарианская</p>
             <p onClick={() => onClickCategory(3)} className={`${activeCategory === 3 ? "category_name_active" : ""} category_name`}>Гриль</p>
