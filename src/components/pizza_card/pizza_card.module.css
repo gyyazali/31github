@@ -21,11 +21,13 @@
 .card_kind {
     padding: 7px 5px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     background: #F3F3F3;
     width: 100%;
     border-radius: 10px 10px 0 0;
 }
-.card_kind_name {
+.card_kind > p{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,7 +50,7 @@
     padding-bottom: 8px;
 }
 
-.card_size_sm {
+.card_size > p{
     display: flex;
     justify-content: center;
     width: 87px;
@@ -74,4 +76,25 @@
     font-size: 22px;
     font-weight: 700;
     letter-spacing: 0.33px;
+}
+
+.price_button {
+    padding: 8px 12px;
+    border-radius: 30px;
+    border: 1px solid #EB5A1E;
+    background: #FFF;
+    color: #EB5A1E;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.price_button > span {
+    background: #EB5A1E;
+    padding: 2px 8px;
+    border-radius: 50%;
+    color: #FFF;
 }

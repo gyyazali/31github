@@ -1,27 +1,32 @@
+import React from "react"
 import css from "./pizza_card.module.css"
-import pizza1 from "../../assets/pizza1.png"
 
-export const Pizza_card = () => {
+export const Pizza_card = ({title, price, imageUrl, sizes, types}) => {
+    const [activeType, setActiveType] = React.useState(0)
+    const [activeSize, setActiveSize] = React.useState(0)
+    const typeName = ["тонкое","традиционное"] 
+    
     return (
         <div className={css.card}>
-            <img src={pizza1} alt="" className={css.card_img} />
-            <p className={css.card_name}>Чизбургер-пицца</p>
+            <img src={imageUrl} alt="" className={css.card_img} />
+            <p className={css.card_name}>{title}</p>
             <div className={css.card_kind}>
-                <p className={`${css.card_kind_name} ${css.card_kind_name_active}`}>тонкое</p>
-                <p className={css.card_kind_name}>традиционное</p>
+                {
+                    types.map((typeIndex) => (<p onClick={() => setActiveType(typeIndex)} className={activeType === typeIndex ? css.card_kind_name_active : ""}>{typeName[typeIndex]}</p>))
+                }
             </div>
             <div className={css.card_size}>
-                <p className={`${css.card_size_sm} ${css.card_size_sm_active}`}>26см</p>
-                <p className={css.card_size_sm}>30см</p>
-                <p className={css.card_size_sm}>40см</p>
+                {
+                    sizes.map((size, i) => (<p onClick={() => setActiveSize(i)} className={activeSize === i ? css.card_size_sm_active : ""}>{size} см.</p>))
+                }
             </div>
             <div className={css.card_price}>
                 <div className={css.price_num}>
-                    от 399 с
+                    от {price} с
                 </div>
-                <div className="price">
-                    Добавить
-                    <span>2</span>
+                <div className={css.price_button}>
+                   + Добавить
+                    <span>0</span>
                 </div>
             </div>
         </div>
