@@ -3,10 +3,10 @@ import React from 'react';
 import shopCar from '../assets/shop-car.png';
 import pizzaIcon from '../assets/pizzaIcon.png';
 import { Pizza_card } from './pizza_card/pizza_card';
-import pizzas from '../assets/pizzas.json';
 
 function App() {
   const [activeCategory, setActiveCategory] = React.useState(0);
+  const [items, setItems] = React.useState([]);
   const [selected, setSelected] = React.useState(0);
   const [popupActive, setPopupActive] = React.useState(false);
 
@@ -21,6 +21,16 @@ function App() {
     setSelected(i);
     setPopupActive(false);
   };
+
+  React.useEffect((res) => {
+    fetch('https://6560a5c383aba11d99d144d2.mockapi.io/items')
+      .then((res) => {
+        return res.json();
+      })
+      .then((arr) => {
+        setItems(arr);
+      });
+  }, []);
 
   const popupName = listSort[selected];
   return (
@@ -77,7 +87,7 @@ function App() {
         <div className="pizzas">
           <p className="pizzas_title">Все пиццы</p>
           <div className="pizza_cards">
-            {pizzas.map((obj) => (
+            {items.map((obj) => (
               <Pizza_card {...obj} />
             ))}
           </div>
