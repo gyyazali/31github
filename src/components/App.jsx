@@ -2,11 +2,13 @@ import '../../src/App.css';
 import React from 'react';
 import shopCar from '../assets/shop-car.png';
 import pizzaIcon from '../assets/pizzaIcon.png';
-import { Pizza_card } from './pizza_card/pizza_card';
+import Main from '../pages/Main/Main';
+import NotFound from '../pages/NotFound/NotFound';
+import Basket from '../pages/Basket/Basket';
+import { Routes, Route, Link } from 'react-router-dom';
 
 function App() {
   const [activeCategory, setActiveCategory] = React.useState(0);
-  const [items, setItems] = React.useState([]);
   const [selected, setSelected] = React.useState(0);
   const [popupActive, setPopupActive] = React.useState(false);
 
@@ -22,40 +24,35 @@ function App() {
     setPopupActive(false);
   };
 
-  React.useEffect((res) => {
-    fetch('https://6560a5c383aba11d99d144d2.mockapi.io/items')
-      .then((res) => {
-        return res.json();
-      })
-      .then((arr) => {
-        setItems(arr);
-      });
-  }, []);
-
   const popupName = listSort[selected];
   return (
     <div className="App">
       <div className="content">
         <div className="header">
-          <div className="pizzaIcon">
-            <img src={pizzaIcon} alt="" />
-            <div className="title">
-              <h1>React pizza</h1>
-              <p>самая вкусная пицца во вселенной</p>
+          <Link className="link" to="/">
+            <div className="pizzaIcon">
+              <img src={pizzaIcon} alt="" />
+              <div className="title">
+                <h1>React pizza</h1>
+                <p>самая вкусная пицца во вселенной</p>
+              </div>
             </div>
-          </div>
-          <div className="price">
-            <span className="price_num">199 c</span>
-            <div className="price_line"></div>
-            <span className="price_count">
-              <img src={shopCar} alt="" />3
-            </span>
-          </div>
+          </Link>
+          <Link className="link" to="/basket">
+            <div className="price">
+              <span className="price_num">199 c</span>
+              <div className="price_line"></div>
+              <span className="price_count">
+                <img src={shopCar} alt="" />3
+              </span>
+            </div>
+          </Link>
         </div>
         <nav className="nav">
           <div className="category">
             {categories.map((value, i) => (
               <p
+                key={i}
                 onClick={() => onClickCategory(i)}
                 className={`${activeCategory === i ? 'category_name_active' : ''} category_name`}
               >
@@ -84,14 +81,11 @@ function App() {
             )}
           </div>
         </nav>
-        <div className="pizzas">
-          <p className="pizzas_title">Все пиццы</p>
-          <div className="pizza_cards">
-            {items.map((obj) => (
-              <Pizza_card {...obj} />
-            ))}
-          </div>
-        </div>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/Basket" element={<Basket />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </div>
     </div>
   );

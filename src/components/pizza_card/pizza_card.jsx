@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './pizza_card.module.css';
 
-export const Pizza_card = ({ title, price, imageUrl, sizes, types }) => {
+const PizzaCard = ({ title, price, imageUrl, sizes, types }) => {
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
   const typeName = ['тонкое', 'традиционное'];
@@ -40,3 +40,5 @@ export const Pizza_card = ({ title, price, imageUrl, sizes, types }) => {
     </div>
   );
 };
+
+export default PizzaCard;
