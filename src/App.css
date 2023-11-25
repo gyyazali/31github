@@ -11,6 +11,10 @@
   align-items: center;
 }
 
+.link {
+  text-decoration: none;
+}
+
 .pizzaIcon {
   display: flex;
   align-items: center;
