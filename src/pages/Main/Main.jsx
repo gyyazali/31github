@@ -21,13 +21,12 @@ const Main = () => {
   return (
     <div className="pizzas">
       <p className="pizzas_title">Все пиццы</p>
-      <div className="pizza_cards">
-        {/* {items.map((obj) => (
-              <Skeleton {...obj} />
-            ))} */}
-        {isLoading
-          ? [...new Array(6)].map(() => <Skeleton />)
-          : items.map((obj) => <PizzaCard {...obj} />)}
+      <div className="pizza_cards_wrapper">
+        <div className="pizza_cards">
+          {isLoading
+            ? [...new Array(6)].map(() => <Skeleton />)
+            : items.map((obj) => <PizzaCard {...obj} />)}
+        </div>
       </div>
     </div>
   );
