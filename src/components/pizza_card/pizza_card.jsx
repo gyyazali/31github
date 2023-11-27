@@ -11,8 +11,9 @@ const PizzaCard = ({ title, price, imageUrl, sizes, types }) => {
       <img src={imageUrl} alt="" className={css.card_img} />
       <p className={css.card_name}>{title}</p>
       <div className={css.card_kind}>
-        {types.map((typeIndex) => (
+        {types.map((typeIndex, i) => (
           <p
+            key={i}
             onClick={() => setActiveType(typeIndex)}
             className={activeType === typeIndex ? css.card_kind_name_active : ''}
           >
@@ -23,6 +24,7 @@ const PizzaCard = ({ title, price, imageUrl, sizes, types }) => {
       <div className={css.card_size}>
         {sizes.map((size, i) => (
           <p
+            key={i}
             onClick={() => setActiveSize(i)}
             className={activeSize === i ? css.card_size_sm_active : ''}
           >
