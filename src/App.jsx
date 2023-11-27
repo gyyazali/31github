@@ -1,16 +1,19 @@
-import '../../src/App.css';
+import './App.css';
 import React from 'react';
-import shopCar from '../assets/shop-car.png';
-import pizzaIcon from '../assets/pizzaIcon.png';
-import Main from '../pages/Main/Main';
-import NotFound from '../pages/NotFound/NotFound';
-import Basket from '../pages/Basket/Basket';
+import shopCar from './assets/shop-car.png';
+import pizzaIcon from './assets/pizzaIcon.png';
+import closeIcon from './assets/close.png';
+import searchIcon from './assets/search.png';
+import Main from './pages/Main/Main';
+import NotFound from './pages/NotFound/NotFound';
+import Basket from './pages/Basket/Basket';
 import { Routes, Route, Link } from 'react-router-dom';
 
 function App() {
   const [activeCategory, setActiveCategory] = React.useState(0);
   const [selected, setSelected] = React.useState(0);
   const [popupActive, setPopupActive] = React.useState(false);
+  const [searchValue, setSearchValue] = React.useState('');
 
   const listSort = ['популярности', 'цену', 'алфавиту'];
 
@@ -38,6 +41,23 @@ function App() {
               </div>
             </div>
           </Link>
+          <div className="header_input">
+            <img className="search_icon" src={searchIcon} alt="" />
+            <input
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              type="text"
+              placeholder="Поиск пицц ..."
+            />
+            {searchValue && (
+              <img
+                onClick={() => setSearchValue('')}
+                className="close_icon"
+                src={closeIcon}
+                alt=""
+              />
+            )}
+          </div>
           <Link className="link" to="/basket">
             <div className="price">
               <span className="price_num">199 c</span>
@@ -73,7 +93,7 @@ function App() {
             {popupActive && (
               <div className="popup">
                 {listSort.map((name, i) => (
-                  <p onClick={() => popupSelected(i)} key={i}>
+                  <p key={i} onClick={() => popupSelected(i)}>
                     {name}
                   </p>
                 ))}
@@ -82,7 +102,7 @@ function App() {
           </div>
         </nav>
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Main searchValue={searchValue} />} />
           <Route path="/Basket" element={<Basket />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

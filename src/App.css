@@ -9,6 +9,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .link {
@@ -43,6 +44,38 @@
   line-height: normal;
 }
 
+.header_input {
+  display: flex;
+  padding: 8px 14px;
+  border: 1px solid rgb(0, 0, 0, 0.1);
+  border-radius: 8px;
+  position: absolute;
+  left: 350px;
+  width: 300px;
+}
+
+.search_icon,
+.close_icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.3;
+}
+.header_input > input {
+  border: none;
+  font-size: 14px;
+  outline: none;
+  background: none;
+  margin-left: 10px;
+  max-width: 250px;
+  width: 100%;
+}
+
+.header_input:focus {
+  border: 1px solid rgb(0, 0, 0, 0.2);
+}
+.close_icon {
+  cursor: pointer;
+}
 .price {
   padding: 15px 19px;
   display: flex;
