@@ -14,32 +14,30 @@ import Sort from './components/Sort/Sort';
 function App() {
   const [items, setItems] = React.useState([]);
   const [activeCategory, setActiveCategory] = React.useState(0);
-  const [sortType, setSortType] = React.useState([
-    { name: 'популярности', sort: 'rating' },
-    { name: 'цене', sort: 'price' },
-    { name: 'алфавиту', sort: 'title' },
-  ]);
+  const [sortType, setSortType] = React.useState({
+    name: 'популярное',
+    sort: 'rating',
+  });
   const [searchValue, setSearchValue] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(true);
 
+  React.useEffect(() => {
+    setIsLoading(true);
 
-  React.useEffect(
-    (res) => {
-      setIsLoading(true);
-      fetch('https://6560a5c383aba11d99d144d2.mockapi.io/items?category=' + activeCategory)
-        .then((res) => {
-          return res.json();
-        })
-        .then((arr) => {
-          setItems(arr);
-          setIsLoading(false);
-        });
-    },
-    [searchValue, activeCategory],
-  );
+    const category = activeCategory > 0 ? `category=${activeCategory}` : '';
+    const order = sortType.sort.includes('-') ? 'asc' : 'desc';
+    const sortBy = sortType.sort.replace('-', '');
 
+    fetch(
+      `https://6560a5c383aba11d99d144d2.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`,
+    )
+      .then((res) => res.json())
+      .then((arr) => {
+        setItems(arr);
+        setIsLoading(false);
+      });
+  }, [activeCategory, sortType, searchValue]);
 
-  console.log(activeCategory);
   return (
     <div className="App">
       <div className="content">
@@ -82,7 +80,7 @@ function App() {
         </div>
         <nav className="nav">
           <Category activeCategory={activeCategory} onClickCategory={(i) => setActiveCategory(i)} />
-          <Sort value={sortType} onChangeSort={(i) => setSortType(i)}/>
+          <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
         </nav>
         <Routes>
           <Route
