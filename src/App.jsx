@@ -8,26 +8,38 @@ import Main from './pages/Main/Main';
 import NotFound from './pages/NotFound/NotFound';
 import Basket from './pages/Basket/Basket';
 import { Routes, Route, Link } from 'react-router-dom';
+import Category from './components/Category/Category';
+import Sort from './components/Sort/Sort';
 
 function App() {
+  const [items, setItems] = React.useState([]);
   const [activeCategory, setActiveCategory] = React.useState(0);
-  const [selected, setSelected] = React.useState(0);
-  const [popupActive, setPopupActive] = React.useState(false);
+  const [sortType, setSortType] = React.useState([
+    { name: 'популярности', sort: 'rating' },
+    { name: 'цене', sort: 'price' },
+    { name: 'алфавиту', sort: 'title' },
+  ]);
   const [searchValue, setSearchValue] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(true);
 
-  const listSort = ['популярности', 'цену', 'алфавиту'];
 
-  const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
-  const onClickCategory = (i) => {
-    setActiveCategory(i);
-  };
+  React.useEffect(
+    (res) => {
+      setIsLoading(true);
+      fetch('https://6560a5c383aba11d99d144d2.mockapi.io/items?category=' + activeCategory)
+        .then((res) => {
+          return res.json();
+        })
+        .then((arr) => {
+          setItems(arr);
+          setIsLoading(false);
+        });
+    },
+    [searchValue, activeCategory],
+  );
 
-  const popupSelected = (i) => {
-    setSelected(i);
-    setPopupActive(false);
-  };
 
-  const popupName = listSort[selected];
+  console.log(activeCategory);
   return (
     <div className="App">
       <div className="content">
@@ -69,40 +81,14 @@ function App() {
           </Link>
         </div>
         <nav className="nav">
-          <div className="category">
-            {categories.map((value, i) => (
-              <p
-                key={i}
-                onClick={() => onClickCategory(i)}
-                className={`${activeCategory === i ? 'category_name_active' : ''} category_name`}
-              >
-                {value}
-              </p>
-            ))}
-          </div>
-          <div className="sort">
-            Сортировка по:
-            <p
-              onClick={() => {
-                setPopupActive(!popupActive);
-              }}
-              className="sort_name"
-            >
-              {popupName}
-            </p>
-            {popupActive && (
-              <div className="popup">
-                {listSort.map((name, i) => (
-                  <p key={i} onClick={() => popupSelected(i)}>
-                    {name}
-                  </p>
-                ))}
-              </div>
-            )}
-          </div>
+          <Category activeCategory={activeCategory} onClickCategory={(i) => setActiveCategory(i)} />
+          <Sort value={sortType} onChangeSort={(i) => setSortType(i)}/>
         </nav>
         <Routes>
-          <Route path="/" element={<Main searchValue={searchValue} />} />
+          <Route
+            path="/"
+            element={<Main searchValue={searchValue} items={items} isLoading={isLoading} />}
+          />
           <Route path="/Basket" element={<Basket />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
