@@ -1,11 +1,17 @@
 import React from 'react';
 import '../../App.css';
 
-const Sort = ({ value, setSortType, onChangeSort }) => {
+const Sort = ({ value, onChangeSort }) => {
   const [popupActive, setPopupActive] = React.useState(false);
 
-  const list = ['популярное', 'цене', 'алфавиту'];
-  const popupName = list[value];
+  const list = [
+    { name: 'популярное (DESC)', sort: 'rating' },
+    { name: 'популярное (ASC)', sort: '-rating' },
+    { name: 'цене (DESC)', sort: 'price' },
+    { name: 'цене (ASC)', sort: '-price' },
+    { name: 'алфавиту (DESC)', sort: 'title' },
+    { name: 'алфавиту (ASC)', sort: '-title' },
+  ];
 
   const popupSelected = (i) => {
     onChangeSort(i);
@@ -20,13 +26,13 @@ const Sort = ({ value, setSortType, onChangeSort }) => {
         }}
         className="sort_name"
       >
-        {popupName}
+        {value.name}
       </p>
       {popupActive && (
         <div className="popup">
           {list.map((obj, i) => (
-            <p key={i} onClick={() => popupSelected(i)}>
-              {obj}
+            <p key={i} onClick={() => popupSelected(obj)}>
+              {obj.name}
             </p>
           ))}
         </div>
