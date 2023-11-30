@@ -20,6 +20,7 @@ function App() {
   });
   const [searchValue, setSearchValue] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(true);
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -27,16 +28,18 @@ function App() {
     const category = activeCategory > 0 ? `category=${activeCategory}` : '';
     const order = sortType.sort.includes('-') ? 'asc' : 'desc';
     const sortBy = sortType.sort.replace('-', '');
+    const search = searchValue ? `&search=${searchValue}` : '';
 
     fetch(
-      `https://6560a5c383aba11d99d144d2.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`,
+      `https://6560a5c383aba11d99d144d2.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
     )
       .then((res) => res.json())
       .then((arr) => {
         setItems(arr);
         setIsLoading(false);
       });
-  }, [activeCategory, sortType, searchValue]);
+  }, [activeCategory, sortType, searchValue, currentPage]);
+
 
   return (
     <div className="App">
@@ -83,10 +86,7 @@ function App() {
           <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
         </nav>
         <Routes>
-          <Route
-            path="/"
-            element={<Main searchValue={searchValue} items={items} isLoading={isLoading} />}
-          />
+          <Route path="/" element={<Main items={items} isLoading={isLoading} setCurrentPage={setCurrentPage}/>} />
           <Route path="/Basket" element={<Basket />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
