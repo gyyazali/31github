@@ -11,6 +11,8 @@ import { Routes, Route, Link } from 'react-router-dom';
 import Category from './components/Category/Category';
 import Sort from './components/Sort/Sort';
 
+export const AppContext = React.createContext();
+
 function App() {
   const [items, setItems] = React.useState([]);
   const [activeCategory, setActiveCategory] = React.useState(0);
@@ -40,57 +42,64 @@ function App() {
       });
   }, [activeCategory, sortType, searchValue, currentPage]);
 
-
   return (
     <div className="App">
-      <div className="content">
-        <div className="header">
-          <Link className="link" to="/">
-            <div className="pizzaIcon">
-              <img src={pizzaIcon} alt="" />
-              <div className="title">
-                <h1>React pizza</h1>
-                <p>самая вкусная пицца во вселенной</p>
+      <AppContext.Provider value={sortType}>
+        <div className="content">
+          <div className="header">
+            <Link className="link" to="/">
+              <div className="pizzaIcon">
+                <img src={pizzaIcon} alt="" />
+                <div className="title">
+                  <h1>React pizza</h1>
+                  <p>самая вкусная пицца во вселенной</p>
+                </div>
               </div>
-            </div>
-          </Link>
-          <div className="header_input">
-            <img className="search_icon" src={searchIcon} alt="" />
-            <input
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              type="text"
-              placeholder="Поиск пицц ..."
-            />
-            {searchValue && (
-              <img
-                onClick={() => setSearchValue('')}
-                className="close_icon"
-                src={closeIcon}
-                alt=""
+            </Link>
+            <div className="header_input">
+              <img className="search_icon" src={searchIcon} alt="" />
+              <input
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                type="text"
+                placeholder="Поиск пицц ..."
               />
-            )}
-          </div>
-          <Link className="link" to="/basket">
-            <div className="price">
-              <span className="price_num">199 c</span>
-              <div className="price_line"></div>
-              <span className="price_count">
-                <img src={shopCar} alt="" />3
-              </span>
+              {searchValue && (
+                <img
+                  onClick={() => setSearchValue('')}
+                  className="close_icon"
+                  src={closeIcon}
+                  alt=""
+                />
+              )}
             </div>
-          </Link>
+            <Link className="link" to="/basket">
+              <div className="price">
+                <span className="price_num">199 c</span>
+                <div className="price_line"></div>
+                <span className="price_count">
+                  <img src={shopCar} alt="" />3
+                </span>
+              </div>
+            </Link>
+          </div>
+          <nav className="nav">
+            <Category
+              activeCategory={activeCategory}
+              onClickCategory={(i) => setActiveCategory(i)}
+            />
+            <Sort  onChangeSort={(i) => setSortType(i)} />
+          </nav>
+          <Routes>
+            <Route
+              path="/"
+              element={<Main items={items} isLoading={isLoading} setCurrentPage={setCurrentPage} />}
+            />
+            <Route path="/Basket" element={<Basket />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </div>
-        <nav className="nav">
-          <Category activeCategory={activeCategory} onClickCategory={(i) => setActiveCategory(i)} />
-          <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
-        </nav>
-        <Routes>
-          <Route path="/" element={<Main items={items} isLoading={isLoading} setCurrentPage={setCurrentPage}/>} />
-          <Route path="/Basket" element={<Basket />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </div>
+      </AppContext.Provider>
     </div>
   );
 }
