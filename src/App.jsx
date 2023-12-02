@@ -44,7 +44,7 @@ function App() {
 
   return (
     <div className="App">
-      <AppContext.Provider value={sortType}>
+      <AppContext.Provider value={{ sortType, setSortType, setSearchValue }}>
         <div className="content">
           <div className="header">
             <Link className="link" to="/">
@@ -84,11 +84,8 @@ function App() {
             </Link>
           </div>
           <nav className="nav">
-            <Category
-              activeCategory={activeCategory}
-              onClickCategory={(i) => setActiveCategory(i)}
-            />
-            <Sort  onChangeSort={(i) => setSortType(i)} />
+            <Category onClickCategory={(i) => setActiveCategory(i)} />
+            <Sort onChangeSort={(i) => setSortType(i)} />
           </nav>
           <Routes>
             <Route

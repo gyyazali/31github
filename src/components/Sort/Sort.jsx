@@ -2,9 +2,9 @@ import React from 'react';
 import '../../App.css';
 import { AppContext } from '../../App';
 
-const Sort = ({ value, onChangeSort }) => {
+const Sort = ({ onChangeSort }) => {
   const [popupActive, setPopupActive] = React.useState(false);
-  const [sortType] = React.useContext(AppContext);
+  const { sortType } = React.useContext(AppContext);
   const list = [
     { name: 'популярное (DESC)', sort: 'rating' },
     { name: 'популярное (ASC)', sort: '-rating' },
