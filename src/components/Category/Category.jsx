@@ -1,7 +1,10 @@
+import React from 'react';
 import '../../App.css';
+import { AppContext } from '../../App';
 
-const Category = ({ onClickCategory, activeCategory }) => {
+const Category = ({ onClickCategory }) => {
   const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+  const { activeCategory } = React.useContext(AppContext);
   return (
     <div className="category">
       {categories.map((value, i) => (
