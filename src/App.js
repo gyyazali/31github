@@ -10,7 +10,6 @@ import Basket from './pages/Basket/Basket';
 import { Routes, Route, Link } from 'react-router-dom';
 import Category from './components/Category/Category';
 import Sort from './components/Sort/Sort';
-
 export const AppContext = React.createContext();
 
 function App() {
@@ -44,7 +43,7 @@ function App() {
 
   return (
     <div className="App">
-      <AppContext.Provider value={{ sortType, setSortType, setSearchValue }}>
+      <AppContext.Provider value={{ sortType, setSortType, setSearchValue, activeCategory }}>
         <div className="content">
           <div className="header">
             <Link className="link" to="/">
