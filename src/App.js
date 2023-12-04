@@ -1,5 +1,6 @@
 import './App.css';
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import shopCar from './assets/shop-car.png';
 import pizzaIcon from './assets/pizzaIcon.png';
 import closeIcon from './assets/close.png';
@@ -10,11 +11,15 @@ import Basket from './pages/Basket/Basket';
 import { Routes, Route, Link } from 'react-router-dom';
 import Category from './components/Category/Category';
 import Sort from './components/Sort/Sort';
+import { setCategoryId } from './redux/slices/filterSlice';
 export const AppContext = React.createContext();
 
 function App() {
+  const dispatch = useDispatch();
+  const categoryId = useSelector((state) => state.filter.categoryId);
+  console.log(categoryId);
   const [items, setItems] = React.useState([]);
-  const [activeCategory, setActiveCategory] = React.useState(0);
+  // const [activeCategory, setActiveCategory] = React.useState(0);
   const [sortType, setSortType] = React.useState({
     name: 'популярное',
     sort: 'rating',
@@ -22,6 +27,13 @@ function App() {
   const [searchValue, setSearchValue] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(1);
+
+  const activeCategory = () => {};
+
+  const onChangeCategory = (id) => {
+    console.log(id);
+    dispatch(setCategoryId(id));
+  };
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -83,7 +95,7 @@ function App() {
             </Link>
           </div>
           <nav className="nav">
-            <Category onClickCategory={(i) => setActiveCategory(i)} />
+            <Category onClickCategory={(i) => onChangeCategory(i)} />
             <Sort onChangeSort={(i) => setSortType(i)} />
           </nav>
           <Routes>
