@@ -14,7 +14,7 @@ const filterSlice = createSlice({
   reducers: {
     setCategoryId(state, action) {
       console.log(action, 'filter');
-      state.activeCategory = action.payload;
+      state.categoryId = action.payload;
     },
   },
 });

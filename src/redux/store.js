@@ -4,4 +4,4 @@ export const store = configureStore({
   reducer: { filter },
 });
 
-console.log(store);
+console.log("store",store);
