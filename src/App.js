@@ -17,7 +17,7 @@ export const AppContext = React.createContext();
 function App() {
   const dispatch = useDispatch();
   const categoryId = useSelector((state) => state.filter.categoryId);
-  console.log(categoryId);
+  console.log('redux state', categoryId);
   const [items, setItems] = React.useState([]);
   // const [activeCategory, setActiveCategory] = React.useState(0);
   const [sortType, setSortType] = React.useState({
@@ -28,17 +28,15 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(1);
 
-  const activeCategory = () => {};
-
-  const onChangeCategory = (id) => {
+  const onClickCategory = (id) => {
     console.log(id);
-    dispatch(setCategoryId(id));
   };
+  console.log('newState', categoryId);
 
   React.useEffect(() => {
     setIsLoading(true);
 
-    const category = activeCategory > 0 ? `category=${activeCategory}` : '';
+    const category = categoryId > 0 ? `category=${categoryId}` : '';
     const order = sortType.sort.includes('-') ? 'asc' : 'desc';
     const sortBy = sortType.sort.replace('-', '');
     const search = searchValue ? `&search=${searchValue}` : '';
@@ -51,11 +49,11 @@ function App() {
         setItems(arr);
         setIsLoading(false);
       });
-  }, [activeCategory, sortType, searchValue, currentPage]);
+  }, [categoryId, sortType, searchValue, currentPage]);
 
   return (
     <div className="App">
-      <AppContext.Provider value={{ sortType, setSortType, setSearchValue, activeCategory }}>
+      <AppContext.Provider value={{ sortType, setSortType, setSearchValue, categoryId }}>
         <div className="content">
           <div className="header">
             <Link className="link" to="/">
@@ -95,7 +93,7 @@ function App() {
             </Link>
           </div>
           <nav className="nav">
-            <Category onClickCategory={(i) => onChangeCategory(i)} />
+            <Category onClickCategory={onClickCategory} />
             <Sort onChangeSort={(i) => setSortType(i)} />
           </nav>
           <Routes>
