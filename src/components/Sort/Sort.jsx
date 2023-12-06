@@ -1,21 +1,24 @@
 import React from 'react';
 import '../../App.css';
-import { AppContext } from '../../App';
+// import { AppContext } from '../../App';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSort } from '../../redux/slices/filterSlice';
 
-const Sort = ({ onChangeSort }) => {
+const Sort = () => {
+  const dispatch = useDispatch();
+  const sort = useSelector((state) => state.filter.sort);
   const [popupActive, setPopupActive] = React.useState(false);
-  const { sortType } = React.useContext(AppContext);
   const list = [
-    { name: 'популярное (DESC)', sort: 'rating' },
-    { name: 'популярное (ASC)', sort: '-rating' },
-    { name: 'цене (DESC)', sort: 'price' },
-    { name: 'цене (ASC)', sort: '-price' },
-    { name: 'алфавиту (DESC)', sort: 'title' },
-    { name: 'алфавиту (ASC)', sort: '-title' },
+    { name: 'популярное (DESC)', sortProperty: 'rating' },
+    { name: 'популярное (ASC)', sortProperty: '-rating' },
+    { name: 'цене (DESC)', sortProperty: 'price' },
+    { name: 'цене (ASC)', sortProperty: '-price' },
+    { name: 'алфавиту (DESC)', sortProperty: 'title' },
+    { name: 'алфавиту (ASC)', sortProperty: '-title' },
   ];
 
-  const popupSelected = (i) => {
-    onChangeSort(i);
+  const popupSelected = (obj) => {
+    dispatch(setSort(obj));
     setPopupActive(false);
   };
   return (
@@ -27,7 +30,7 @@ const Sort = ({ onChangeSort }) => {
         }}
         className="sort_name"
       >
-        {sortType.name}
+        {sort.name}
       </p>
       {popupActive && (
         <div className="popup">
