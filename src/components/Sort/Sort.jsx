@@ -4,18 +4,18 @@ import '../../App.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSort } from '../../redux/slices/filterSlice';
 
+export const list = [
+  { name: 'популярное (DESC)', sortProperty: 'rating' },
+  { name: 'популярное (ASC)', sortProperty: '-rating' },
+  { name: 'цене (DESC)', sortProperty: 'price' },
+  { name: 'цене (ASC)', sortProperty: '-price' },
+  { name: 'алфавиту (DESC)', sortProperty: 'title' },
+  { name: 'алфавиту (ASC)', sortProperty: '-title' },
+];
 const Sort = () => {
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.filter.sort);
   const [popupActive, setPopupActive] = React.useState(false);
-  const list = [
-    { name: 'популярное (DESC)', sortProperty: 'rating' },
-    { name: 'популярное (ASC)', sortProperty: '-rating' },
-    { name: 'цене (DESC)', sortProperty: 'price' },
-    { name: 'цене (ASC)', sortProperty: '-price' },
-    { name: 'алфавиту (DESC)', sortProperty: 'title' },
-    { name: 'алфавиту (ASC)', sortProperty: '-title' },
-  ];
 
   const popupSelected = (obj) => {
     dispatch(setSort(obj));
