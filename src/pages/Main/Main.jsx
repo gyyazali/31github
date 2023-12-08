@@ -14,6 +14,7 @@ const Main = ({ isLoading, items }) => {
   const onChangePage = (num) => {
     dispatch(setCurrentPage(num));
   };
+
   return (
     <div className="pizzas">
       <p className="pizzas_title">Все пиццы</p>

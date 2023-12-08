@@ -1,4 +1,3 @@
-import './App.css';
 import React, { useRef } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,7 +16,7 @@ import Main from './pages/Main/Main';
 import NotFound from './pages/NotFound/NotFound';
 import Basket from './pages/Basket/Basket';
 
-function App() {
+export function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
@@ -142,5 +141,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
