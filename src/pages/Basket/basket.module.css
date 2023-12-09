@@ -1,5 +1,138 @@
 .content {
   display: flex;
+  justify-content: center;
+}
+
+.basket_content {
+  display: flex;
+  flex-direction: column;
+  width: 820px;
+  max-width: 100%;
+  margin-top: 100px;
+}
+.title_block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title_block_text {
+  display: flex;
+  align-items: center;
+}
+
+.title_block_text > img {
+  width: 29px;
+  height: 29px;
+  margin-right: 7px;
+}
+
+.title_text {
+  color: #000;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.32px;
+}
+.title_block_btn {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.title_block_btn > img {
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+}
+.title_block_btn > button {
+  border: none;
+  color: #b6b6b6;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: transparent;
+  cursor: pointer;
+}
+.pizzas_block {
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
+  gap: 60px;
+}
+
+.count_block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.count_blockText {
+  display: flex;
+  margin-top: 30px;
+}
+.count_blockText > p,
+span,
+.count_blockPrice > p,
+span {
+  color: #000;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.22px;
+}
+
+.count_blockText > span,
+.count_blockPrice > span {
+  font-weight: 700;
+  margin-left: 7px;
+}
+
+.count_blockPrice > span {
+  color: #fe5f1e;
+}
+.count_blockPrice {
+  display: flex;
+}
+
+.pay_block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.backBtn {
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+  border: 1px solid #000;
+  background: transparent;
+  border-radius: 16px;
+  padding: 12px 24px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.backBtn:hover {
+  opacity: 0.7;
+}
+
+.payBtn {
+  color: #fe5f1e;
+  font-size: 16px;
+  font-weight: 400;
+  border: 1px solid #fe5f1e;
+  background: transparent;
+  border-radius: 16px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.payBtn:hover {
+  background: #fe5f1e;
+  color: #fff;
+  border: 1px solid transparent;
+}
+
+.empty_content {
+  display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 165px;

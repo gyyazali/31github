@@ -1,0 +1,73 @@
+.pizza {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pizza_group {
+  display: flex;
+  align-items: center;
+  width: 400px;
+  max-width: 100%;
+}
+.pizza_img {
+  width: 80px;
+  height: 80px;
+  margin-right: 15px;
+}
+.pizza_title {
+  display: flex;
+  flex-direction: column;
+}
+.pizza_title > span {
+  color: #000;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.22px;
+}
+
+.pizza_title > p {
+  color: #8d8d8d;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.18px;
+}
+.pizza_count {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pizza_countMinus,
+.pizza_countPlus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fe5f1e;
+  color: #fe5f1e;
+  font-size: 16px;
+  font-weight: 700;
+  background: transparent;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.pizza_count > p {
+  color: #000;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.22px;
+}
+
+.pizza_price {
+  color: #000;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.22px;
+}
+.pizza_clearBtn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+}

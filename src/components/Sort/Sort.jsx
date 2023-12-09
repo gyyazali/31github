@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import '../../App.css';
-// import { AppContext } from '../../App';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSort } from '../../redux/slices/filterSlice';
 
@@ -12,17 +11,32 @@ export const list = [
   { name: 'алфавиту (DESC)', sortProperty: 'title' },
   { name: 'алфавиту (ASC)', sortProperty: '-title' },
 ];
-const Sort = () => {
+
+function Sort() {
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.filter.sort);
   const [popupActive, setPopupActive] = React.useState(false);
+  const sortRef = useRef();
 
   const popupSelected = (obj) => {
     dispatch(setSort(obj));
-    setPopupActive(false);
   };
+
+  // Был ли клик вне области
+  React.useEffect(() => {
+    const handeClickOutside = (event) => {
+      if (!event.composedPath().includes(sortRef.current)) {
+        setPopupActive(false);
+        console.log('click outside');
+      }
+    };
+    document.body.addEventListener('click', handeClickOutside);
+
+    return () => document.body.removeEventListener('click', handeClickOutside);
+  }, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       Сортировка по:
       <p
         onClick={() => {
@@ -43,5 +57,5 @@ const Sort = () => {
       )}
     </div>
   );
-};
+}
 export default Sort;
