@@ -5,108 +5,11 @@
   border-radius: 10px;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-}
-
-.link {
-  text-decoration: none;
-}
-
-.pizzaIcon {
-  display: flex;
-  align-items: center;
-  gap: 17px;
-}
-.pizzaIcon > img {
-  width: 38px;
-  height: 38px;
-}
-.title {
-  display: flex;
-  flex-direction: column;
-}
-.title > h1 {
-  color: #181818;
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: 0.24px;
-  text-transform: uppercase;
-}
-
-.title > p {
-  color: #7b7b7b;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.header_input {
-  display: flex;
-  padding: 8px 14px;
-  border: 1px solid rgb(0, 0, 0, 0.1);
-  border-radius: 8px;
-  position: absolute;
-  left: 350px;
-  width: 300px;
-}
-
-.search_icon,
-.close_icon {
-  width: 18px;
-  height: 18px;
-  opacity: 0.3;
-}
-.header_input > input {
-  border: none;
-  font-size: 14px;
-  outline: none;
-  background: none;
-  margin-left: 10px;
-  max-width: 250px;
-  width: 100%;
-}
-
-.header_input:focus {
-  border: 1px solid rgb(0, 0, 0, 0.2);
-}
-.close_icon {
-  cursor: pointer;
-}
-.price {
-  padding: 15px 19px;
-  display: flex;
-  align-items: center;
-  border-radius: 30px;
-  background: #fe5f1e;
-  color: #fff;
-  gap: 7px;
-}
-.price_num {
-  font-size: 16px;
-  font-weight: 700;
-}
-.price_line {
-  width: 1px;
-  height: 20px;
-  background-color: #fff;
-}
-.price_count {
-  display: flex;
-  align-items: center;
-  font-size: 16px;
-  font-weight: 700;
-  gap: 4px;
-}
-
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 40px;
+  margin: 40px 0;
 }
 
 .category {

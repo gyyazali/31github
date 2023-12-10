@@ -1,10 +1,28 @@
 import React from 'react';
 import css from './pizza_card.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { addItem } from '../../redux/slices/basketSlice';
 
-const PizzaCard = ({ title, price, imageUrl, sizes, types }) => {
+const PizzaCard = ({ id, title, price, imageUrl, sizes, types }) => {
+  const dispatch = useDispatch();
+  const basketItem = useSelector((state) => state.basket.items.find((obj) => obj.id === id));
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
   const typeName = ['тонкое', 'традиционное'];
+
+  const addedCount = basketItem ? basketItem.count : 0;
+
+  const onClickAdd = () => {
+    const item = {
+      id,
+      title,
+      price,
+      imageUrl,
+      type: typeName[activeType],
+      size: sizes[activeSize],
+    };
+    dispatch(addItem(item));
+  };
 
   return (
     <div className={css.card}>
@@ -34,9 +52,9 @@ const PizzaCard = ({ title, price, imageUrl, sizes, types }) => {
       </div>
       <div className={css.card_price}>
         <div className={css.price_num}>от {price} с</div>
-        <div className={css.price_button}>
+        <div onClick={onClickAdd} className={css.price_button}>
           + Добавить
-          <span>0</span>
+          {addedCount > 0 && <span>{addedCount}</span>}
         </div>
       </div>
     </div>
