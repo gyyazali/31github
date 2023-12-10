@@ -6,16 +6,12 @@ import { Routes, Route, Link } from 'react-router-dom';
 import { setCategoryId, setFilters } from './redux/slices/filterSlice';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
-import debounce from 'lodash.debounce';
 import Category from './components/Category/Category';
 import Sort, { list } from './components/Sort/Sort';
-import shopCar from './assets/shop-car.png';
-import pizzaIcon from './assets/pizzaIcon.png';
-import closeIcon from './assets/close.png';
-import searchIcon from './assets/search.png';
 import Main from './pages/Main/Main';
 import NotFound from './pages/NotFound/NotFound';
 import Basket from './pages/Basket/Basket';
+import Header from './components/Header/Header';
 
 function App() {
   const navigate = useNavigate();
@@ -24,8 +20,8 @@ function App() {
   const [items, setItems] = React.useState([]);
   const [searchValue, setSearchValue] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(true);
-  const [value, setValue] = React.useState('');
   const isMounted = useRef(false);
+  
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
   };
@@ -75,66 +71,12 @@ function App() {
       });
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  const onClickClear = () => {
-    setSearchValue('');
-    setValue('');
-    inputRef.current.focus();
-  };
-
-  const updateSearchValue = React.useCallback(
-    debounce((str) => {
-      setSearchValue(str);
-    }, 250),
-    [],
-  );
-
-  const onChangeInput = (e) => {
-    setValue(e.target.value);
-    updateSearchValue(e.target.value);
-  };
-
-  const inputRef = React.useRef();
-
   return (
     <div className="App">
       <div className="content">
-        <div className="header">
-          <Link className="link" to="/">
-            <div className="pizzaIcon">
-              <img src={pizzaIcon} alt="" />
-              <div className="title">
-                <h1>React pizza</h1>
-                <p>самая вкусная пицца во вселенной</p>
-              </div>
-            </div>
-          </Link>
-          <div className="header_input">
-            <img className="search_icon" src={searchIcon} alt="" />
-            <input
-              ref={inputRef}
-              value={value}
-              onChange={onChangeInput}
-              type="text"
-              placeholder="Поиск пицц ..."
-            />
-            {value && <img onClick={onClickClear} className="close_icon" src={closeIcon} alt="" />}
-          </div>
-          <Link className="link" to="/basket">
-            <div className="price">
-              <span className="price_num">199 c</span>
-              <div className="price_line"></div>
-              <span className="price_count">
-                <img src={shopCar} alt="" />3
-              </span>
-            </div>
-          </Link>
-        </div>
-        <nav className="nav">
-          <Category onClickCategory={onClickCategory} />
-          <Sort />
-        </nav>
+        <Header setSearchValue={setSearchValue}/>
         <Routes>
-          <Route path="/" element={<Main items={items} isLoading={isLoading} />} />
+          <Route path="/" element={<Main items={items} isLoading={isLoading} onClickCategory={onClickCategory}/>} />
           <Route path="/Basket" element={<Basket />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
