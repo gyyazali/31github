@@ -6,22 +6,21 @@ import { Routes, Route, Link } from 'react-router-dom';
 import { setCategoryId, setFilters } from './redux/slices/filterSlice';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
-import Category from './components/Category/Category';
-import Sort, { list } from './components/Sort/Sort';
+import { list } from './components/Sort/Sort';
 import Main from './pages/Main/Main';
 import NotFound from './pages/NotFound/NotFound';
 import Basket from './pages/Basket/Basket';
 import Header from './components/Header/Header';
+import { setItems, fetchPizzas } from './redux/slices/pizzaSlice';
 
 function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
-  const [items, setItems] = React.useState([]);
+  const { items } = useSelector((state) => state.pizza);
   const [searchValue, setSearchValue] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(true);
   const isMounted = useRef(false);
-  
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
   };
@@ -40,6 +39,30 @@ function App() {
   }, [categoryId, sort.sortProperty, currentPage]);
 
   // Если был первый рендер, то проверяем URL - параметры и сохраняем в redux
+
+  const getPizzas = async () => {
+    setIsLoading(true);
+
+    const category = categoryId > 0 ? `category=${categoryId}` : '';
+    const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
+    const sortBy = sort.sortProperty.replace('-', '');
+    const search = searchValue ? `&search=${searchValue}` : '';
+
+    try {
+      dispatch(fetchPizzas(category, order, sortBy, search));
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
+
+    window.scrollTo(0, 0);
+  };
+  React.useEffect(() => {
+    if (window.location.search) {
+      getPizzas();
+    }
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+
   React.useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
@@ -52,31 +75,15 @@ function App() {
       );
     }
   }, []);
-
-  React.useEffect(() => {
-    setIsLoading(true);
-
-    const category = categoryId > 0 ? `category=${categoryId}` : '';
-    const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
-    const sortBy = sort.sortProperty.replace('-', '');
-    const search = searchValue ? `&search=${searchValue}` : '';
-
-    axios
-      .get(
-        `https://6560a5c383aba11d99d144d2.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
-  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
-
   return (
     <div className="App">
       <div className="content">
-        <Header setSearchValue={setSearchValue}/>
+        <Header setSearchValue={setSearchValue} />
         <Routes>
-          <Route path="/" element={<Main items={items} isLoading={isLoading} onClickCategory={onClickCategory}/>} />
+          <Route
+            path="/"
+            element={<Main items={items} isLoading={isLoading} onClickCategory={onClickCategory} />}
+          />
           <Route path="/Basket" element={<Basket />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

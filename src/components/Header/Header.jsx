@@ -14,6 +14,7 @@ const Header = ({ setSearchValue }) => {
   const [value, setValue] = React.useState('');
 
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  
   const updateSearchValue = React.useCallback(
     debounce((str) => {
       setSearchValue(str);
