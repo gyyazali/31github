@@ -26,7 +26,7 @@ const basketSlice = createSlice({
     },
     minusItem(state, action) {
       const findItem = state.items.find((obj) => obj.id === action.payload);
-      if (findItem) {
+      if (findItem.count) {
         findItem.count--;
       }
     },

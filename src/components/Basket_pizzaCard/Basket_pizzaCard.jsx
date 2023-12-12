@@ -3,9 +3,9 @@ import clearBtn from '../../assets/clearBtnIcon.png';
 import { useDispatch } from 'react-redux';
 import { addItem, minusItem, removeItem } from '../../redux/slices/basketSlice';
 
-const BasketPizzaCard = ({ id, title, type,size, imageUrl, price, count }) => {
+const BasketPizzaCard = ({ id, title, type, size, imageUrl, price, count }) => {
   const dispatch = useDispatch();
-  
+
   const onClickPlus = () => {
     dispatch(addItem({ id }));
   };
@@ -13,7 +13,7 @@ const BasketPizzaCard = ({ id, title, type,size, imageUrl, price, count }) => {
     dispatch(minusItem(id));
   };
   const onClickRemove = () => {
-    dispatch(removeItem(id));
+    dispatch(removeItem());
   };
 
   return (
@@ -22,7 +22,9 @@ const BasketPizzaCard = ({ id, title, type,size, imageUrl, price, count }) => {
         <img className={css.pizza_img} src={imageUrl} alt="" />
         <div className={css.pizza_title}>
           <span>{title}</span>
-          <p>{type}, {size} см.</p>
+          <p>
+            {type}, {size} см.
+          </p>
         </div>
       </div>
       <div className={css.pizza_count}>

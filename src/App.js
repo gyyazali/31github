@@ -1,8 +1,7 @@
 import './App.css';
 import React, { useRef } from 'react';
-import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { setCategoryId, setFilters } from './redux/slices/filterSlice';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
@@ -11,15 +10,13 @@ import Main from './pages/Main/Main';
 import NotFound from './pages/NotFound/NotFound';
 import Basket from './pages/Basket/Basket';
 import Header from './components/Header/Header';
-import { setItems, fetchPizzas } from './redux/slices/pizzaSlice';
+import { fetchPizzas } from './redux/slices/pizzaSlice';
 
 function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
-  const { items } = useSelector((state) => state.pizza);
   const [searchValue, setSearchValue] = React.useState('');
-  const [isLoading, setIsLoading] = React.useState(true);
   const isMounted = useRef(false);
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -41,28 +38,30 @@ function App() {
   // Если был первый рендер, то проверяем URL - параметры и сохраняем в redux
 
   const getPizzas = async () => {
-    setIsLoading(true);
-
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
     const sortBy = sort.sortProperty.replace('-', '');
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    try {
-      dispatch(fetchPizzas(category, order, sortBy, search));
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-    }
+    dispatch(
+      fetchPizzas({
+        category,
+        sortBy,
+        order,
+        search,
+        currentPage,
+      }),
+    );
 
     window.scrollTo(0, 0);
   };
+
   React.useEffect(() => {
     if (window.location.search) {
       getPizzas();
     }
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
-
+  
   React.useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
@@ -82,7 +81,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={<Main items={items} isLoading={isLoading} onClickCategory={onClickCategory} />}
+            element={<Main onClickCategory={onClickCategory} />}
           />
           <Route path="/Basket" element={<Basket />} />
           <Route path="*" element={<NotFound />} />

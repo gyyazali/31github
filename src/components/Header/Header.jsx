@@ -32,6 +32,7 @@ const Header = ({ setSearchValue }) => {
     setValue('');
     inputRef.current.focus();
   };
+  
   return (
     <div className={css.header}>
       <Link className={css.link} to="/">

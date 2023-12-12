@@ -77,7 +77,14 @@
   color: #fe5f1e;
   background: rgba(254, 95, 30, 0.05);
 }
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.error > h1 {
+}
 .pizzas {
   display: flex;
   flex-direction: column;
