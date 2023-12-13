@@ -3,7 +3,7 @@ import '../../App.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSort } from '../../redux/slices/filterSlice';
 
-export const list = [
+export const sortList = [
   { name: 'популярное (DESC)', sortProperty: 'rating' },
   { name: 'популярное (ASC)', sortProperty: '-rating' },
   { name: 'цене (DESC)', sortProperty: 'price' },
@@ -48,7 +48,7 @@ function Sort() {
       </p>
       {popupActive && (
         <div className="popup">
-          {list.map((obj, i) => (
+          {sortList.map((obj, i) => (
             <p key={i} onClick={() => popupSelected(obj)}>
               {obj.name}
             </p>

@@ -8,12 +8,13 @@ import Pagination from '../../components/Pagination/Pagination';
 import Category from '../../components/Category/Category';
 import Sort from '../../components/Sort/Sort';
 
-const Main = ({ onClickCategory }) => {
-  const skeletons = [...new Array(4)].map((_, i) => <Skeleton key={i} />);
+const Main = () => {
   const { items, status } = useSelector((state) => state.pizza);
-  const pizzas = items.map((obj) => <PizzaCard key={obj.id} {...obj} />);
   const { currentPage } = useSelector((state) => state.filter);
+  const skeletons = [...new Array(4)].map((_, i) => <Skeleton key={i} />);
+  const pizzas = items.map((obj) => <PizzaCard key={obj.id} {...obj} />);
   const dispatch = useDispatch();
+
   const onChangePage = (num) => {
     dispatch(setCurrentPage(num));
   };
@@ -21,7 +22,7 @@ const Main = ({ onClickCategory }) => {
   return (
     <div className="pizzas">
       <nav className="nav">
-        <Category onClickCategory={onClickCategory} />
+        <Category />
         <Sort />
       </nav>
       <p className="pizzas_title">Все пиццы</p>
