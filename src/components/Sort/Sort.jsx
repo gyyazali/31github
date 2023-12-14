@@ -20,6 +20,7 @@ function Sort() {
 
   const popupSelected = (obj) => {
     dispatch(setSort(obj));
+    setPopupActive(false);
   };
 
   // Был ли клик вне области

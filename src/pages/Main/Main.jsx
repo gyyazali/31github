@@ -1,19 +1,81 @@
 import React from 'react';
 import '../../App.css';
+import qs from 'qs';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentPage } from '../../redux/slices/filterSlice';
+import { setCurrentPage, setFilters } from '../../redux/slices/filterSlice';
 import Skeleton from '../../components/Skeleton/Skeleton';
 import PizzaCard from '../../components/Pizza_card/Pizza_card';
 import Pagination from '../../components/Pagination/Pagination';
 import Category from '../../components/Category/Category';
-import Sort from '../../components/Sort/Sort';
+import Sort, { sortList } from '../../components/Sort/Sort';
+import { fetchPizzas } from '../../redux/slices/pizzaSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
   const { items, status } = useSelector((state) => state.pizza);
-  const { currentPage } = useSelector((state) => state.filter);
+  const { currentPage, categoryId, sort, searchValue } = useSelector((state) => state.filter);
   const skeletons = [...new Array(4)].map((_, i) => <Skeleton key={i} />);
   const pizzas = items.map((obj) => <PizzaCard key={obj.id} {...obj} />);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const isMounted = React.useRef(false);
+
+  const getPizzas = () => {
+    const category = categoryId > 0 ? `category=${categoryId}` : '';
+    const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
+    const sortBy = sort.sortProperty.replace('-', '');
+    const search = searchValue ? `&search=${searchValue}` : '';
+
+    console.log('efesfe)');
+    dispatch(
+      fetchPizzas({
+        category,
+        sortBy,
+        order,
+        search,
+        currentPage,
+      }),
+    );
+
+    window.scrollTo(0, 0);
+  };
+
+  //Если изменили параметры и был первый рендер
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortProperty: sort.sortProperty,
+        categoryId,
+        currentPage,
+      });
+      navigate(`?${queryString}`);
+    }
+
+    if (!window.location.search) {
+      fetchPizzas();
+    }
+
+    isMounted.current = true;
+  }, [categoryId, sort.sortProperty, currentPage]);
+
+  // Если был первый рендер, то проверяем URL - параметры и сохраняем в redux
+  React.useEffect(() => {
+    getPizzas();
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+
+  React.useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
+      dispatch(
+        setFilters({
+          ...params,
+          sort,
+        }),
+      );
+    }
+  }, []);
 
   const onChangePage = (num) => {
     dispatch(setCurrentPage(num));

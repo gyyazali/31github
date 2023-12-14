@@ -13,7 +13,7 @@ const BasketPizzaCard = ({ id, title, type, size, imageUrl, price, count }) => {
     dispatch(minusItem(id));
   };
   const onClickRemove = () => {
-    dispatch(removeItem());
+    dispatch(removeItem(id));
   };
 
   return (
