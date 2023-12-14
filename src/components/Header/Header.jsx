@@ -1,23 +1,25 @@
-import React from 'react';
 import css from './header.module.css';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import debounce from 'lodash.debounce';
+import { Link } from 'react-router-dom';
+import { setSearchValue } from '../../redux/slices/filterSlice';
 import shopCar from '../../assets/shop-car.png';
 import pizzaIcon from '../../assets/pizzaIcon.png';
 import closeIcon from '../../assets/close.png';
 import searchIcon from '../../assets/search.png';
 
-const Header = ({ setSearchValue }) => {
+const Header = () => {
+  const dispatch = useDispatch();
   const inputRef = React.useRef();
   const { items, totalPrice } = useSelector((state) => state.basket);
   const [value, setValue] = React.useState('');
 
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
-  
+
   const updateSearchValue = React.useCallback(
     debounce((str) => {
-      setSearchValue(str);
+      dispatch(setSearchValue(str));
     }, 250),
     [],
   );
@@ -28,11 +30,11 @@ const Header = ({ setSearchValue }) => {
   };
 
   const onClickClear = () => {
-    setSearchValue('');
+    dispatch(setSearchValue(''));
     setValue('');
     inputRef.current.focus();
   };
-  
+
   return (
     <div className={css.header}>
       <Link className={css.link} to="/">
