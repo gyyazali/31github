@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 30px 0;
 }
 .pizza_group {
   display: flex;
@@ -65,9 +66,9 @@
   letter-spacing: 0.22px;
 }
 .pizza_clearBtn {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    width: 32px;
-    height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
 }

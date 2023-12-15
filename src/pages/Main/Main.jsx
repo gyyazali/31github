@@ -1,25 +1,26 @@
-import React from 'react';
 import '../../App.css';
+import React from 'react';
 import qs from 'qs';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentPage, setFilters } from '../../redux/slices/filterSlice';
+import { useNavigate } from 'react-router-dom';
+import { selectFilter, setCurrentPage, setFilters } from '../../redux/slices/filterSlice';
 import Skeleton from '../../components/Skeleton/Skeleton';
 import PizzaCard from '../../components/Pizza_card/Pizza_card';
 import Pagination from '../../components/Pagination/Pagination';
 import Category from '../../components/Category/Category';
 import Sort, { sortList } from '../../components/Sort/Sort';
-import { fetchPizzas } from '../../redux/slices/pizzaSlice';
-import { useNavigate } from 'react-router-dom';
+import { fetchPizzas, selectPizzaData } from '../../redux/slices/pizzaSlice';
 
 const Main = () => {
-  const { items, status } = useSelector((state) => state.pizza);
-  const { currentPage, categoryId, sort, searchValue } = useSelector((state) => state.filter);
-  const skeletons = [...new Array(4)].map((_, i) => <Skeleton key={i} />);
-  const pizzas = items.map((obj) => <PizzaCard key={obj.id} {...obj} />);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const isMounted = React.useRef(false);
+
+  const { items, status } = useSelector(selectPizzaData);
+  const { currentPage, categoryId, sort, searchValue } = useSelector(selectFilter);
+  const skeletons = [...new Array(4)].map((_, i) => <Skeleton key={i} />);
+
+  const pizzas = items.map((obj) => <PizzaCard key={obj.id} {...obj} />);
 
   const getPizzas = () => {
     const category = categoryId > 0 ? `category=${categoryId}` : '';
@@ -27,7 +28,6 @@ const Main = () => {
     const sortBy = sort.sortProperty.replace('-', '');
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    console.log('efesfe)');
     dispatch(
       fetchPizzas({
         category,
@@ -82,23 +82,25 @@ const Main = () => {
   };
 
   return (
-    <div className="pizzas">
-      <nav className="nav">
-        <Category />
-        <Sort />
-      </nav>
-      <p className="pizzas_title">Все пиццы</p>
-      <div className="pizza_cards_wrapper">
-        {status === 'error' ? (
-          <div className="error">
-            <h1>Нет пицц {`(`}</h1>
-            <p>Ошибка при получении пицц из бэккенда</p>
-          </div>
-        ) : (
-          <div className="pizza_cards">{status === 'loading' ? skeletons : pizzas}</div>
-        )}
+    <div className="container">
+      <div className="pizzas">
+        <nav className="nav">
+          <Category />
+          <Sort />
+        </nav>
+        <p className="pizzas_title">Все пиццы</p>
+        <div className="pizza_cards_wrapper">
+          {status === 'error' ? (
+            <div className="error">
+              <h1>Нет пицц {`(`}</h1>
+              <p>Ошибка при получении пицц из бэккенда</p>
+            </div>
+          ) : (
+            <div className="pizza_cards">{status === 'loading' ? skeletons : pizzas}</div>
+          )}
+        </div>
+        <Pagination currentPage={currentPage} onChangePage={onChangePage} />
       </div>
-      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
 };

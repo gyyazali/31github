@@ -2,17 +2,20 @@ import css from './header.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import debounce from 'lodash.debounce';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { setSearchValue } from '../../redux/slices/filterSlice';
 import shopCar from '../../assets/shop-car.png';
 import pizzaIcon from '../../assets/pizzaIcon.png';
 import closeIcon from '../../assets/close.png';
 import searchIcon from '../../assets/search.png';
+import { selectBasket } from '../../redux/slices/basketSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
   const inputRef = React.useRef();
-  const { items, totalPrice } = useSelector((state) => state.basket);
+  const location = useLocation();
+
+  const { items, totalPrice } = useSelector(selectBasket);
   const [value, setValue] = React.useState('');
 
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
@@ -36,37 +39,43 @@ const Header = () => {
   };
 
   return (
-    <div className={css.header}>
-      <Link className={css.link} to="/">
-        <div className={css.pizzaIcon}>
-          <img src={pizzaIcon} alt="" />
-          <div className={css.title}>
-            <h1>React pizza</h1>
-            <p>самая вкусная пицца во вселенной</p>
+    <div className="container">
+      <div className={css.header}>
+        <Link className={css.link} to="/">
+          <div className={css.pizzaIcon}>
+            <img src={pizzaIcon} alt="" />
+            <div className={css.title}>
+              <h1>React pizza</h1>
+              <p>самая вкусная пицца во вселенной</p>
+            </div>
           </div>
+        </Link>
+        <div className={css.header_input}>
+          <img className={css.search_icon} src={searchIcon} alt="" />
+          <input
+            ref={inputRef}
+            value={value}
+            onChange={onChangeInput}
+            type="text"
+            placeholder="Поиск пицц ..."
+          />
+          {value && (
+            <img onClick={onClickClear} className={css.close_icon} src={closeIcon} alt="" />
+          )}
         </div>
-      </Link>
-      <div className={css.header_input}>
-        <img className={css.search_icon} src={searchIcon} alt="" />
-        <input
-          ref={inputRef}
-          value={value}
-          onChange={onChangeInput}
-          type="text"
-          placeholder="Поиск пицц ..."
-        />
-        {value && <img onClick={onClickClear} className={css.close_icon} src={closeIcon} alt="" />}
-      </div>
-      <Link className={css.link} to="/basket">
         <div className={css.price}>
-          <span className={css.price_num}>{totalPrice} c</span>
-          <div className={css.price_line}></div>
-          <span className={css.price_count}>
-            <img src={shopCar} alt="" />
-            {totalCount}
-          </span>
+          {location.pathname !== '/basket' && (
+            <Link className={css.linkBasket} to="/basket">
+              <span className={css.price_num}>{totalPrice} c</span>
+              <div className={css.price_line}></div>
+              <span className={css.price_count}>
+                <img src={shopCar} alt="" />
+                {totalCount}
+              </span>
+            </Link>
+          )}
         </div>
-      </Link>
+      </div>
     </div>
   );
 };

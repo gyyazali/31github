@@ -1,11 +1,12 @@
 import React from 'react';
 import css from './pizza_card.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { addItem } from '../../redux/slices/basketSlice';
+import { addItem, selectBasketItemById } from '../../redux/slices/basketSlice';
+import { Link } from 'react-router-dom';
 
 const PizzaCard = ({ id, title, price, imageUrl, sizes, types }) => {
   const dispatch = useDispatch();
-  const basketItem = useSelector((state) => state.basket.items.find((obj) => obj.id === id));
+  const basketItem = useSelector(selectBasketItemById(id));
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
   const typeName = ['тонкое', 'традиционное'];
@@ -26,8 +27,11 @@ const PizzaCard = ({ id, title, price, imageUrl, sizes, types }) => {
 
   return (
     <div className={css.card}>
-      <img src={imageUrl} alt="" className={css.card_img} />
-      <p className={css.card_name}>{title}</p>
+      <Link className="link" to={`/pizza/${id}`}>
+        <img src={imageUrl} alt="" className={css.card_img} />
+        <p className={css.card_name}>{title}</p>
+      </Link>
+
       <div className={css.card_kind}>
         {types.map((typeIndex, i) => (
           <p

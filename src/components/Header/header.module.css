@@ -3,10 +3,22 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
+  padding: 32px 0;
 }
 
-.link {
+.link,
+.linkBasket {
   text-decoration: none;
+}
+
+.linkBasket {
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  background: #fe5f1e;
+  color: #fff;
+  gap: 14px;
 }
 
 .pizzaIcon {
@@ -70,13 +82,8 @@
   cursor: pointer;
 }
 .price {
-  padding: 12px 24px;
   display: flex;
   align-items: center;
-  border-radius: 30px;
-  background: #fe5f1e;
-  color: #fff;
-  gap: 14px;
 }
 .price_num {
   font-size: 16px;

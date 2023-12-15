@@ -37,21 +37,9 @@ const pizzaSlice = createSlice({
         state.items = [];
       });
   },
-  // extraReducers: {
-  //   [fetchPizzas.pending]: (state) => {
-  //     state.status = 'loading';
-  //     state.items = [];
-  //   },
-  //   [fetchPizzas.fulfilled]: (state, action) => {
-  //     state.items = action.payload;
-  //     state.status = 'success';
-  //   },
-  //   [fetchPizzas.rejected]: (state) => {
-  //     state.status = 'error';
-  //     state.items = [];
-  //   },
-  // },
 });
+
+export const selectPizzaData = (state) => state.pizza
 
 export const { setItems } = pizzaSlice.actions;
 
