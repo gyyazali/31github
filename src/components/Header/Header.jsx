@@ -50,19 +50,21 @@ const Header = () => {
             </div>
           </div>
         </Link>
-        <div className={css.header_input}>
-          <img className={css.search_icon} src={searchIcon} alt="" />
-          <input
-            ref={inputRef}
-            value={value}
-            onChange={onChangeInput}
-            type="text"
-            placeholder="Поиск пицц ..."
-          />
-          {value && (
-            <img onClick={onClickClear} className={css.close_icon} src={closeIcon} alt="" />
-          )}
-        </div>
+        {location.pathname !== '/basket' && (
+          <div className={css.header_input}>
+            <img className={css.search_icon} src={searchIcon} alt="" />
+            <input
+              ref={inputRef}
+              value={value}
+              onChange={onChangeInput}
+              type="text"
+              placeholder="Поиск пицц ..."
+            />
+            {value && (
+              <img onClick={onClickClear} className={css.close_icon} src={closeIcon} alt="" />
+            )}
+          </div>
+        )}
         <div className={css.price}>
           {location.pathname !== '/basket' && (
             <Link className={css.linkBasket} to="/basket">
