@@ -3,7 +3,7 @@ import css from './notFound.module.css';
 import '../../App.css';
 import { Link } from 'react-router-dom';
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
   return (
     <div className={css.content}>
       <span className={css.title}>Нет такой страницы :( </span>

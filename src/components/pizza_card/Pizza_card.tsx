@@ -4,7 +4,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addItem, selectBasketItemById } from '../../redux/slices/basketSlice';
 import { Link } from 'react-router-dom';
 
-const PizzaCard = ({ id, title, price, imageUrl, sizes, types }) => {
+type PizzaCardProps = {
+  id: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+  sizes: number[];
+  types: number[];
+};
+
+const PizzaCard: React.FC<PizzaCardProps> = ({ id, title, price, imageUrl, sizes, types }) => {
   const dispatch = useDispatch();
   const basketItem = useSelector(selectBasketItemById(id));
   const [activeType, setActiveType] = React.useState(0);

@@ -12,22 +12,22 @@ import { selectBasket } from '../../redux/slices/basketSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
-  const inputRef = React.useRef();
+  const inputRef = React.useRef<HTMLInputElement>(null);
   const location = useLocation();
 
   const { items, totalPrice } = useSelector(selectBasket);
   const [value, setValue] = React.useState('');
 
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
 
   const updateSearchValue = React.useCallback(
-    debounce((str) => {
+    debounce((str: string) => {
       dispatch(setSearchValue(str));
     }, 250),
     [],
   );
 
-  const onChangeInput = (e) => {
+  const onChangeInput = (e: any) => {
     setValue(e.target.value);
     updateSearchValue(e.target.value);
   };
@@ -35,7 +35,7 @@ const Header = () => {
   const onClickClear = () => {
     dispatch(setSearchValue(''));
     setValue('');
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
   return (

@@ -3,7 +3,12 @@ import '../../App.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSort, setSort } from '../../redux/slices/filterSlice';
 
-export const sortList = [
+type SortItem = {
+  name: string;
+  sortProperty: string;
+};
+
+export const sortList: SortItem[] = [
   { name: 'популярное (DESC)', sortProperty: 'rating' },
   { name: 'популярное (ASC)', sortProperty: '-rating' },
   { name: 'цене (DESC)', sortProperty: 'price' },
@@ -16,19 +21,18 @@ function Sort() {
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
   const [popupActive, setPopupActive] = React.useState(false);
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  const popupSelected = (obj) => {
+  const onClickListItem = (obj: SortItem) => {
     dispatch(setSort(obj));
     setPopupActive(false);
   };
 
   // Был ли клик вне области
   React.useEffect(() => {
-    const handeClickOutside = (event) => {
+    const handeClickOutside = (event: any) => {
       if (!event.composedPath().includes(sortRef.current)) {
         setPopupActive(false);
-        console.log('click outside');
       }
     };
     document.body.addEventListener('click', handeClickOutside);
@@ -50,7 +54,7 @@ function Sort() {
       {popupActive && (
         <div className="popup">
           {sortList.map((obj, i) => (
-            <p key={i} onClick={() => popupSelected(obj)}>
+            <p key={i} onClick={() => onClickListItem(obj)}>
               {obj.name}
             </p>
           ))}
