@@ -9,10 +9,10 @@ import BasketPizzaCard from '../../components/Basket_pizzaCard/Basket_pizzaCard'
 import { clearItems } from '../../redux/slices/basketSlice';
 import { selectBasket } from '../../redux/slices/basketSlice';
 
-const Basket = () => {
+const Basket: React.FC = () => {
   const dispatch = useDispatch();
   const { items, totalPrice } = useSelector(selectBasket);
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
 
   const onClickClear = () => {
     dispatch(clearItems());
@@ -48,7 +48,7 @@ const Basket = () => {
             </div>
           </div>
           <div className={css.pizzas_block}>
-            {items.map((item) => (
+            {items.map((item: any) => (
               <>
                 <div className="MainGrayLine"></div>
                 <BasketPizzaCard key={item.id} {...item} />

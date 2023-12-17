@@ -3,7 +3,17 @@ import clearBtn from '../../assets/clearBtnIcon.png';
 import { useDispatch } from 'react-redux';
 import { addItem, minusItem, removeItem } from '../../redux/slices/basketSlice';
 
-const BasketPizzaCard = ({ id, title, type, size, imageUrl, price, count }) => {
+type BasketPizzaProps = {
+  id: string;
+  title: string;
+  type: string;
+  size: number;
+  imageUrl: string;
+  price: number;
+  count: number;
+};
+
+const BasketPizzaCard:React.FC <BasketPizzaProps> = ({ id, title, type, size, imageUrl, price, count }) => {
   const dispatch = useDispatch();
 
   const onClickPlus = () => {
