@@ -3,9 +3,12 @@ import '../../App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCategoryId, setCategoryId } from '../../redux/slices/filterSlice';
 
+
+const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+
 const Category: React.FC = () => {
   const dispatch = useDispatch();
-  const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+  
   const categoryId = useSelector(selectCategoryId);
 
   const onChageCategory = (index: number) => {

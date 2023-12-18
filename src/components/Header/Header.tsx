@@ -10,7 +10,7 @@ import closeIcon from '../../assets/close.png';
 import searchIcon from '../../assets/search.png';
 import { selectBasket } from '../../redux/slices/basketSlice';
 
-const Header = () => {
+const Header: React.FC = () => {
   const dispatch = useDispatch();
   const inputRef = React.useRef<HTMLInputElement>(null);
   const location = useLocation();
@@ -27,7 +27,7 @@ const Header = () => {
     [],
   );
 
-  const onChangeInput = (e: any) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     updateSearchValue(e.target.value);
   };
