@@ -17,7 +17,7 @@ export const sortList: SortItem[] = [
   { name: 'алфавиту (ASC)', sortProperty: '-title' },
 ];
 
-function Sort() {
+const Sort: React.FC = () => {
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
   const [popupActive, setPopupActive] = React.useState(false);
@@ -30,8 +30,8 @@ function Sort() {
 
   // Был ли клик вне области
   React.useEffect(() => {
-    const handeClickOutside = (event: any) => {
-      if (!event.composedPath().includes(sortRef.current)) {
+    const handeClickOutside = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setPopupActive(false);
       }
     };
