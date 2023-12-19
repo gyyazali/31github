@@ -1,7 +1,7 @@
 import css from './basket_pizzaCard.module.css';
 import clearBtn from '../../assets/clearBtnIcon.png';
 import { useDispatch } from 'react-redux';
-import { addItem, minusItem, removeItem } from '../../redux/slices/basketSlice';
+import { BasketItem, addItem, minusItem, removeItem } from '../../redux/slices/basketSlice';
 
 type BasketPizzaProps = {
   id: string;
@@ -17,7 +17,7 @@ const BasketPizzaCard:React.FC <BasketPizzaProps> = ({ id, title, type, size, im
   const dispatch = useDispatch();
 
   const onClickPlus = () => {
-    dispatch(addItem({ id }));
+    dispatch(addItem({ id } as BasketItem));
   };
   const onClickMinus = () => {
     dispatch(minusItem(id));
