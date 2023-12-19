@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './pizza_card.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { addItem, selectBasketItemById } from '../../redux/slices/basketSlice';
+import { BasketItem, addItem, selectBasketItemById } from '../../redux/slices/basketSlice';
 import { Link } from 'react-router-dom';
 
 type PizzaCardProps = {
@@ -23,13 +23,14 @@ const PizzaCard: React.FC<PizzaCardProps> = ({ id, title, price, imageUrl, sizes
   const addedCount = basketItem ? basketItem.count : 0;
 
   const onClickAdd = () => {
-    const item = {
+    const item: BasketItem = {
       id,
       title,
       price,
       imageUrl,
       type: typeName[activeType],
       size: sizes[activeSize],
+      count: 0,
     };
     dispatch(addItem(item));
   };
