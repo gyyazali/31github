@@ -13,7 +13,15 @@ type BasketPizzaProps = {
   count: number;
 };
 
-const BasketPizzaCard:React.FC <BasketPizzaProps> = ({ id, title, type, size, imageUrl, price, count }) => {
+const BasketPizzaCard: React.FC<BasketPizzaProps> = ({
+  id,
+  title,
+  type,
+  size,
+  imageUrl,
+  price,
+  count,
+}) => {
   const dispatch = useDispatch();
 
   const onClickPlus = () => {
@@ -38,7 +46,7 @@ const BasketPizzaCard:React.FC <BasketPizzaProps> = ({ id, title, type, size, im
         </div>
       </div>
       <div className={css.pizza_count}>
-        <button onClick={onClickMinus} className={css.pizza_countMinus}>
+        <button disabled={count === 1} onClick={onClickMinus} className={css.pizza_countMinus}>
           -
         </button>
         <p>{count}</p>

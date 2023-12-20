@@ -38,8 +38,6 @@ const Main: React.FC = () => {
         currentPage: String(currentPage),
       }),
     );
-
-    window.scrollTo(0, 0);
   };
 
   // //Если изменили параметры и был первый рендер
@@ -61,7 +59,7 @@ const Main: React.FC = () => {
   // }, [categoryId, sort.sortProperty, currentPage]);
 
   // Если был первый рендер, то проверяем URL - параметры и сохраняем в redux
- 
+
   React.useEffect(() => {
     getPizzas();
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);

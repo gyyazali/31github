@@ -37,6 +37,14 @@
   align-items: center;
   gap: 10px;
 }
+
+.pizza_count > button:disabled {
+  background: transparent;
+  border: 2px solid #aaaaaa;
+  color: #aaaaaa;
+  opacity: 0.7;
+  cursor: auto;
+}
 .pizza_countMinus,
 .pizza_countPlus {
   display: flex;
