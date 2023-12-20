@@ -1,19 +1,20 @@
 import React from 'react';
 import '../../App.css';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCategoryId, setCategoryId } from '../../redux/slices/filterSlice';
 
 
 const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-const Category: React.FC = () => {
+const Category: React.FC = React.memo(() => {
   const dispatch = useDispatch();
   
   const categoryId = useSelector(selectCategoryId);
 
-  const onChageCategory = (index: number) => {
+  const onChageCategory = React.useCallback((index: number) => {
     dispatch(setCategoryId(index));
-  };
+  },[dispatch]);
 
   return (
     <div className="category">
@@ -28,5 +29,5 @@ const Category: React.FC = () => {
       ))}
     </div>
   );
-};
+})
 export default Category;
