@@ -1,8 +1,10 @@
 import React from 'react';
 import css from './pizza_card.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { BasketItem, addItem, selectBasketItemById } from '../../redux/slices/basketSlice';
 import { Link } from 'react-router-dom';
+import { selectBasketItemById } from '../../redux/slices/basket/selectors';
+import { BasketItem } from '../../redux/slices/basket/types';
+import { addItem } from '../../redux/slices/basket/slice';
 
 type PizzaCardProps = {
   id: string;
