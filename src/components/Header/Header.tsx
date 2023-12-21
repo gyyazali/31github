@@ -4,15 +4,23 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import shopCar from '../../assets/shop-car.png';
 import pizzaIcon from '../../assets/pizzaIcon.png';
-import { selectBasket } from '../../redux/slices/basketSlice';
 import Search from '../Search/Search';
+import { selectBasket } from '../../redux/slices/basket/selectors';
 
 const Header: React.FC = () => {
   const location = useLocation();
-
+  const isMonted = React.useRef(false);
   const { items, totalPrice } = useSelector(selectBasket);
 
   const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
+
+  React.useEffect(() => {
+    if (isMonted.current) {
+      const json = JSON.stringify(items);
+      localStorage.setItem('basket', json);
+    }
+    isMonted.current = true;
+  }, [items]);
 
   return (
     <div className="container">

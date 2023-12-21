@@ -1,7 +1,8 @@
 import css from './basket_pizzaCard.module.css';
 import clearBtn from '../../assets/clearBtnIcon.png';
 import { useDispatch } from 'react-redux';
-import { BasketItem, addItem, minusItem, removeItem } from '../../redux/slices/basketSlice';
+import { addItem, minusItem, removeItem } from '../../redux/slices/basket/slice';
+import { BasketItem } from '../../redux/slices/basket/types';
 
 type BasketPizzaProps = {
   id: string;

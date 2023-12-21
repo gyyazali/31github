@@ -1,24 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import { getBasketFromLS } from '../../../utils/getBasketFromLS';
+import { calcTotalPrice } from '../../../utils/calcTotalPrice';
+import { BasketItem, BasketSliceState } from './types';
 
-export type BasketItem = {
-  id: string;
-  title: string;
-  imageUrl: string;
-  type: string;
-  price: number;
-  size: number;
-  count: number;
-};
-
-interface BasketSliceState {
-  totalPrice: number;
-  items: BasketItem[];
-}
+const { items, totalPrice } = getBasketFromLS();
 
 const initialState: BasketSliceState = {
-  totalPrice: 0,
-  items: [],
+  totalPrice,
+  items,
 };
 
 const basketSlice = createSlice({
@@ -36,9 +25,7 @@ const basketSlice = createSlice({
           count: 1,
         });
       }
-      state.totalPrice = state.items.reduce((sum, obj) => {
-        return obj.price * obj.count + sum;
-      }, 0);
+      state.totalPrice = calcTotalPrice(state.items);
     },
     minusItem(state, action: PayloadAction<string>) {
       const findItem = state.items.find((obj) => obj.id === action.payload);
@@ -55,10 +42,6 @@ const basketSlice = createSlice({
     },
   },
 });
-
-export const selectBasket = (state: RootState) => state.basket;
-export const selectBasketItemById = (id: string) => (state: RootState) =>
-  state.basket.items.find((obj) => obj.id === id);
 
 export const { addItem, removeItem, minusItem, clearItems } = basketSlice.actions;
 

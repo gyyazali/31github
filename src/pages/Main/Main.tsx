@@ -1,21 +1,23 @@
 import '../../App.css';
 import React from 'react';
-import qs from 'qs';
+// import qs from 'qs';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { selectFilter, setCurrentPage, setFilters } from '../../redux/slices/filterSlice';
+// import { useNavigate } from 'react-router-dom';
 import Skeleton from '../../components/Skeleton/Skeleton';
 import PizzaCard from '../../components/Pizza_card/Pizza_card';
 import Pagination from '../../components/Pagination/Pagination';
 import Category from '../../components/Category/Category';
-import Sort, { sortList } from '../../components/Sort/SortPopup';
-import { SearchPizzaParams, fetchPizzas, selectPizzaData } from '../../redux/slices/pizzaSlice';
+import Sort from '../../components/Sort/SortPopup';
 import { useAppDispatch } from '../../redux/store';
+import { selectPizzaData } from '../../redux/slices/pizza/selectors';
+import { selectFilter } from '../../redux/slices/filter/selectors';
+import { setCurrentPage } from '../../redux/slices/filter/slice';
+import { fetchPizzas } from '../../redux/slices/pizza/asyncAction';
 
 const Main: React.FC = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const isMounted = React.useRef(false);
+  // const navigate = useNavigate();
+  // const isMounted = React.useRef(false);
 
   const { items, status } = useSelector(selectPizzaData);
   const { currentPage, categoryId, sort, searchValue } = useSelector(selectFilter);

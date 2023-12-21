@@ -2,7 +2,7 @@ import React from 'react';
 import css from './search.module.css';
 import debounce from 'lodash.debounce';
 import { useAppDispatch } from '../../redux/store';
-import { setSearchValue } from '../../redux/slices/filterSlice';
+import { setSearchValue } from '../../redux/slices/filter/slice';
 import { useLocation } from 'react-router-dom';
 import closeIcon from '../../assets/close.png';
 import searchIcon from '../../assets/search.png';

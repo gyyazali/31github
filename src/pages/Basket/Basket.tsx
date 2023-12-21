@@ -6,8 +6,8 @@ import basketNotFound from '../../assets/basketNotFound.png';
 import basketIcon from '../../assets/basketIcon.png';
 import trashIcon from '../../assets/trash.png';
 import BasketPizzaCard from '../../components/Basket_pizzaCard/Basket_pizzaCard';
-import { clearItems } from '../../redux/slices/basketSlice';
-import { selectBasket } from '../../redux/slices/basketSlice';
+import { clearItems } from '../../redux/slices/basket/slice';
+import { selectBasket } from '../../redux/slices/basket/selectors';
 
 const Basket: React.FC = () => {
   const dispatch = useDispatch();
