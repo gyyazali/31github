@@ -3,10 +3,20 @@ import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Main from './pages/Main/Main';
 import MainLayout from './layouts/MainLayout';
+import Loadable from 'react-loadable';
 
-const NotFound = React.lazy(() => import(/* webpackChunkName: "NotFound"*/ './pages/NotFound/NotFound'));
-const Basket = React.lazy(() => import(/* webpackChunkName: "Basket"*/ './pages/Basket/Basket'));
-const FullPizza = React.lazy(() => import(/* webpackChunkName: "FullPizza"*/ './pages/FullPizza/FullPizza'));
+const Basket = Loadable({
+  loader: () => import(/* webpackChunkName: "Basket"*/ './pages/Basket/Basket'),
+  loading: () => <div>Идет загрузка корзины...</div>,
+});
+const NotFound = Loadable({
+  loader: () => import(/* webpackChunkName: "NotFound"*/ './pages/NotFound/NotFound'),
+  loading: () => <div>Идет загрузка корзины...</div>,
+});
+const FullPizza = Loadable({
+  loader: () => import(/* webpackChunkName: "FullPizza"*/ './pages/FullPizza/FullPizza'),
+  loading: () => <div>Идет загрузка корзины...</div>,
+});
 
 function App() {
   return (

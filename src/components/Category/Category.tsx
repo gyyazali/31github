@@ -1,6 +1,5 @@
 import React from 'react';
 import '../../App.css';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCategoryId } from '../../redux/slices/filter/selectors';
 import { setCategoryId } from '../../redux/slices/filter/slice';

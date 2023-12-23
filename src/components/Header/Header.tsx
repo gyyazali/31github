@@ -1,11 +1,10 @@
+import React from 'react';
 import css from './header.module.css';
 import { useSelector } from 'react-redux';
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import shopCar from '../../assets/shop-car.png';
-import pizzaIcon from '../../assets/pizzaIcon.png';
-import Search from '../Search/Search';
 import { selectBasket } from '../../redux/slices/basket/selectors';
+import Search from '../Search/Search';
+import { shopCar, pizzaIcon } from '../../assets/importImages';
 
 const Header: React.FC = () => {
   const location = useLocation();

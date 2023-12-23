@@ -2,10 +2,8 @@ import React from 'react';
 import css from './basket.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import basketNotFound from '../../assets/basketNotFound.png';
-import basketIcon from '../../assets/basketIcon.png';
-import trashIcon from '../../assets/trash.png';
-import BasketPizzaCard from '../../components/Basket_pizzaCard/Basket_pizzaCard';
+import { basketNotFound, basketIcon, trashIcon } from '../../assets/importImages';
+import { BasketPizzaCard } from '../../components/importComponents';
 import { clearItems } from '../../redux/slices/basket/slice';
 import { selectBasket } from '../../redux/slices/basket/selectors';
 
