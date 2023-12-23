@@ -4,11 +4,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
 // import * as math from "../../utils/matn"
-import Skeleton from '../../components/Skeleton/Skeleton';
-import PizzaCard from '../../components/Pizza_card/Pizza_card';
-import Pagination from '../../components/Pagination/Pagination';
-import Category from '../../components/Category/Category';
-import Sort from '../../components/Sort/SortPopup';
+import { Skeleton, PizzaCard, Pagination, Category, Sort } from '../../components/importComponents';
 import { useAppDispatch } from '../../redux/store';
 import { selectPizzaData } from '../../redux/slices/pizza/selectors';
 import { selectFilter } from '../../redux/slices/filter/selectors';
@@ -20,9 +16,9 @@ const Main: React.FC = () => {
   // const navigate = useNavigate();
   // const isMounted = React.useRef(false);
 
-  import("../../utils/matn").then(math => {
-    console.log(math.add(16, 26));
-  });
+  // import("../../utils/matn").then(math => {
+  //   console.log(math.add(16, 26));
+  // });
 
   const { items, status } = useSelector(selectPizzaData);
   const { currentPage, categoryId, sort, searchValue } = useSelector(selectFilter);
