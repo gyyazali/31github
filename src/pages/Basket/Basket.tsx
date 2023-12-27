@@ -6,17 +6,19 @@ import { basketNotFound, basketIcon, trashIcon } from '../../assets/importImages
 import { BasketPizzaCard } from '../../components/importComponents';
 import { clearItems } from '../../redux/slices/basket/slice';
 import { selectBasket } from '../../redux/slices/basket/selectors';
+import { BasketItem } from '../../redux/slices/basket/types';
 
 const Basket: React.FC = () => {
   const dispatch = useDispatch();
   const { items, totalPrice } = useSelector(selectBasket);
+
   const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
 
   const onClickClear = () => {
     dispatch(clearItems());
   };
 
-  if (!totalPrice) {
+  if (!totalCount) {
     return (
       <div className={css.empty_content}>
         <span className={css.title}>Корзина пустая {`:( `}</span>
@@ -46,11 +48,8 @@ const Basket: React.FC = () => {
             </div>
           </div>
           <div className={css.pizzas_block}>
-            {items.map((item: any) => (
-              <>
-                <div className="MainGrayLine"></div>
-                <BasketPizzaCard key={item.id} {...item} />
-              </>
+            {items.map((item: BasketItem) => (
+              <BasketPizzaCard key={item.id} {...item} />
             ))}
           </div>
           <div className={css.count_block}>

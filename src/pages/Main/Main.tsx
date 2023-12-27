@@ -10,6 +10,7 @@ import { selectPizzaData } from '../../redux/slices/pizza/selectors';
 import { selectFilter } from '../../redux/slices/filter/selectors';
 import { setCurrentPage } from '../../redux/slices/filter/slice';
 import { fetchPizzas } from '../../redux/slices/pizza/asyncAction';
+import { calcTotalPrice } from '../../utils/calcTotalPrice';
 
 const Main: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -65,7 +66,7 @@ const Main: React.FC = () => {
 
   React.useEffect(() => {
     getPizzas();
-  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+  }, [categoryId, sort.sortProperty, searchValue, currentPage, calcTotalPrice]);
 
   // React.useEffect(() => {
   //   if (window.location.search) {

@@ -4,11 +4,10 @@
 // export {default as Sort} from "./Sort/SortPopup"
 
 import Skeleton from './Skeleton/Skeleton';
-import PizzaCard from './Pizza_card/Pizza_card';
+import PizzaCard from './PizzaCard/PizzaCard';
 import Pagination from './Pagination/Pagination';
 import Category from './Category/Category';
 import Sort from './Sort/SortPopup';
-import BasketPizzaCard from './Basket_pizzaCard/Basket_pizzaCard';
-
+import BasketPizzaCard from './BasketPizzaCard/BasketPizzaCard';
 
 export { Skeleton, PizzaCard, Pagination, Category, Sort, BasketPizzaCard };

@@ -98,3 +98,9 @@
   border-radius: 50%;
   color: #fff;
 }
+
+@media (max-width: 400px) {
+  .card_img {
+    max-width: 220px;
+  }
+}

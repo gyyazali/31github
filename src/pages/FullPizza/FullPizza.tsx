@@ -9,6 +9,7 @@ const FullPizza: React.FC = () => {
     imageUrl: string;
     title: string;
     price: number;
+    description: string;
   }>();
 
   const { id } = useParams();
@@ -28,22 +29,18 @@ const FullPizza: React.FC = () => {
   }, []);
 
   if (!pizza) {
-    return <>Загрузка...</>;
+    return <div className={css.loading}>Загрузка...</div>;
   }
   return (
     <div className="container">
       <div className={css.pizza}>
         <div>
-          <img src={pizza.imageUrl} alt="" />
+          <img className={css.pizzaImage} src={pizza.imageUrl} alt="" />
         </div>
-        <div>
-          <h2>{pizza.title}</h2>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis ab tenetur unde amet
-            reprehenderit, laboriosam veniam laborum eum, molestias mollitia commodi eligendi animi
-            quaerat. Saepe delectus ad odio sunt excepturi.
-          </p>
-          <h4>{pizza.price} c</h4>
+        <div className={css.pizza_about}>
+          <h2 className={css.pizza_title}>{pizza.title}</h2>
+          <p className={css.pizza_description}>{pizza.description}</p>
+          <h4 className={css.pizza_price}>{pizza.price} c</h4>
         </div>
       </div>
     </div>
