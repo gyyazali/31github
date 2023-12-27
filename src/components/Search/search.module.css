@@ -30,3 +30,17 @@
 .close_icon {
   cursor: pointer;
 }
+
+@media (max-width: 930px) {
+  .header_input {
+    position: static;
+  }
+}
+
+@media (max-width: 420px) {
+  .header_input {
+    max-width: 250px;
+    width: 100%;
+    padding: 8px 10px;
+  }
+}

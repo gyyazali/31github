@@ -1,5 +1,4 @@
 import './App.css';
-import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Main from './pages/Main/Main';
 import MainLayout from './layouts/MainLayout';
@@ -23,30 +22,9 @@ function App() {
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route path="" element={<Main />} />
-        <Route
-          path="Basket"
-          element={
-            <Suspense fallback={<div>Идет загрузка корзины...</div>}>
-              <Basket />
-            </Suspense>
-          }
-        />
-        <Route
-          path="pizza/:id"
-          element={
-            <Suspense fallback={<div>Идет загрузка...</div>}>
-              <FullPizza />
-            </Suspense>
-          }
-        />
-        <Route
-          path="*"
-          element={
-            <Suspense fallback={<div>Идет загрузка...</div>}>
-              <NotFound />
-            </Suspense>
-          }
-        />
+        <Route path="Basket" element={<Basket />} />
+        <Route path="pizza/:id" element={<FullPizza />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

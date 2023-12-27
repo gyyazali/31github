@@ -1,5 +1,5 @@
 import React from 'react';
-import css from './pizza_card.module.css';
+import css from './pizzaCard.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectBasketItemById } from '../../redux/slices/basket/selectors';
@@ -43,7 +43,6 @@ const PizzaCard: React.FC<PizzaCardProps> = ({ id, title, price, imageUrl, sizes
         <img src={imageUrl} alt="" className={css.card_img} />
         <p className={css.card_name}>{title}</p>
       </Link>
-
       <div className={css.card_kind}>
         {types.map((typeIndex, i) => (
           <p

@@ -172,3 +172,9 @@ span {
   font-weight: 600;
   letter-spacing: 0.24px;
 }
+
+@media (max-width: 950px) {
+  .basket_content {
+    padding: 0 24px;
+  }
+}

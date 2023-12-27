@@ -7,8 +7,8 @@
 .pizza_group {
   display: flex;
   align-items: center;
-  width: 400px;
-  max-width: 100%;
+  max-width: 400px;
+  width: 100%;
 }
 .pizza_img {
   width: 80px;
@@ -79,4 +79,9 @@
   cursor: pointer;
   width: 32px;
   height: 32px;
+}
+
+@media (max-width: 771px) {
+  .pizza_group {
+  }
 }
